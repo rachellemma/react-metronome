@@ -5,38 +5,34 @@ import './App.css';
 
 function App() {
   // creates a state variable bpm with 
-  // intial value 120 and setBpm is the function
-  // to update bpm 
+  // intial value 120 and setBpm is the function to update bpm
   const [bpm, setBpm] = useState(120);
 
   // state variable isPlaying, initial value false 
-  // setIsPlaying is a function to toggle whether 
-  // metronome is currently playing 
+  // setIsPlaying is a function to toggle whether metronome is currently playing 
   const [isPlaying, setIsPlaying] = useState(false);
 
   // persistent references; using useRef allows us to 
-  // create it only once and reuse it every time we play a 
-  // click 
+  // create a variable only once and reuse it every time we play a 
+  // click (withstands re-renders)
 
   // stores the ID of the interval timer 
   const intervalRef = useRef(null);
-  // stores the audiocontext instance
-  // that produces sound 
+  // stores the audiocontext instance that produces sound 
   // ref object created by useRef
   const audioCtxRef = useRef(null);
 
 
   const playClick = () => {
-    // when its first created and equal to null, it will be false 
+    // ensures that only one audio context object is created 
     if (!audioCtxRef.current) {
-      // create the instance of the audio context 
+      // initializes and creates the instance of the audio context 
       audioCtxRef.current = new (window.AudioContext)();
     }
-    // else access the current audiocontext object
+    
     // central object for managing and processing all audio within
     // webpage in the Web Audio API 
     const ctx = audioCtxRef.current;
-
     // node that generates the click sound 
     const osc = ctx.createOscillator();
     // gain node to control volume 
@@ -60,22 +56,19 @@ function App() {
 // runs every time a value in the dependency array changes
 // isPlaying or bpm 
   useEffect(() => {
-    // start interval when isPlaying = true
     if (isPlaying) {
       // plays one click immediately 
       playClick();
       // calculates the time interval between clicks in miliseconds
-      // bpm is beats per minute and there are 60000 ms in one minute 
       const delay = 60000 / bpm; 
       // calls setInterval (built in browser function that 
-      // calls a function repeatedly every so seconds)
-      // returns an interval ID which you can 
-      // pass later into clearInterval to stop it 
+      // calls a function repeatedly every specified seconds)
+      // returns an interval ID which is
+      // passed later into clearInterval to stop it 
       intervalRef.current = setInterval(playClick, delay);
     } 
     // stop when isPlaying = false
     else {
-      // cancels the repeating timer using the stored ID
       clearInterval(intervalRef.current);
     }
     // react always runs the cleanup before re-running effect 
