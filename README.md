@@ -4,10 +4,10 @@ Project Name: MyMetronome
 Description: A simple React metronome implemented with the help of the Web Audio API and javascript. 
 
 
-Features: Adjustable BPM 
+Features: Adjustable BPM (40 - 220), Start/Stop button 
 
 
-How to run it locally: npm install -> npm run dev 
+Live demo: https://rachellemma.github.io/react-metronome/
 
 
 Tech stack: 
