@@ -9,3 +9,14 @@ Features: Adjustable BPM
 
 How to run it locally: npm install -> npm run dev 
 
+
+Tech stack: 
+
+- React
+
+- Vite
+  
+- JavaScript
+  
+- HTML/CSS
+
